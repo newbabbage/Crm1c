@@ -1,53 +1,71 @@
 package com.example.addcontact;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-//
-//
-//    public TextView displayContact;
-//    public TextView displayType;
-//    public EditText email;
-//    public EditText phone;
-//    public EditText firstName;
-//    public EditText lastName;
-//    public RadioButton leadButton;
-//    public RadioButton custButton;
-//    public RadioButton suppButton;
-//    public FloatingActionButton floatingActionButton;
-      private FloatingActionButton floatingActionButton3;
 
-    //
-//
+    private FloatingActionButton floatingActionButton3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        floatingActionButton3 = (FloatingActionButton) findViewById(R.id.floatingActionButton3);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
 
-        View.OnClickListener ourOnCLickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
-
-            }
 
 
-        };
-
-        floatingActionButton3.setOnClickListener(ourOnCLickListener);
     }
-}
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+
+                    switch (item.getItemId()) {
+                        case R.id.nav_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+                        case R.id.nav_contacts:
+                            selectedFragment = new ContactsFragment();
+                            break;
+                        case R.id.nav_campaign:
+                            selectedFragment = new CampaignFragment();
+                            break;
+                    }
+
+                    assert selectedFragment != null;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+
+
+            };
+
+
+
+    }
+
+
+
+
+
+
 
 
 

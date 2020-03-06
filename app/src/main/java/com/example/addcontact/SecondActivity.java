@@ -40,7 +40,7 @@ public class SecondActivity extends MainActivity {
         View.OnClickListener myOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SecondActivity.this, ContactDB.class);
+                Intent i = new Intent(SecondActivity.this, ContactsFragment.class);
                 i.putExtra("firstname", firstName.getText().toString() );
                 i.putExtra("lastname", lastName.getText().toString() );
                 i.putExtra("email", email.getText().toString() );
